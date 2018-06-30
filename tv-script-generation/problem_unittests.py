@@ -6,6 +6,9 @@ from tensorflow.contrib import rnn
 def _print_success_message():
     print('Tests Passed')
 
+def bla():
+    print("coo")
+
 
 def test_create_lookup_tables(create_lookup_tables):
     with tf.Graph().as_default():
@@ -15,7 +18,7 @@ def test_create_lookup_tables(create_lookup_tables):
         Moe_Szyslak Hold on I'll check Mike Rotch Mike Rotch Hey has anybody seen Mike Rotch lately
         Moe_Szyslak Listen you little puke One of these days I'm gonna catch you and I'm gonna carve my name on your back with an ice pick
         Moe_Szyslak Whats the matter Homer You're not your normal effervescent self
-        Homer_Simpson I got my problems Moe Give me another one
+        Homeget_init_celr_Simpson I got my problems Moe Give me another one
         Moe_Szyslak Homer hey you should not drink to forget your problems
         Barney_Gumble Yeah you should only drink to enhance your social skills'''
 
@@ -203,18 +206,22 @@ def test_get_init_cell(get_init_cell):
 
 
 def test_get_embed(get_embed):
-    with tf.Graph().as_default():
-        embed_shape = [50, 5, 256]
+    with tf.Graph().as_default() as g:
+        embed_shape = [2, 3, 256]
         test_input_data = tf.placeholder(tf.int32, embed_shape[:2])
         test_vocab_size = 27
         test_embed_dim = embed_shape[2]
 
         embed = get_embed(test_input_data, test_vocab_size, test_embed_dim)
-
         # Check shape
         assert embed.shape == embed_shape,\
             'Wrong shape.  Found shape {}'.format(embed.shape)
+        sess= tf.InteractiveSession(graph=g)
+        feed = {
 
+            test_input_data: [[1,2,3],[1,2,3]]}
+        sess.run(tf.global_variables_initializer())
+        result=sess.run(embed, feed)
     _print_success_message()
 
 
